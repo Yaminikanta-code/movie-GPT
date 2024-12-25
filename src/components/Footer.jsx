@@ -46,7 +46,6 @@ function Footer() {
               </a>
             </div>
             <p className="text-sm">© 2023 MovieGPT. All rights reserved.</p>
-            <h1>hello</h1>
           </footer>
         </div>
       </div>

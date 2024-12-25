@@ -10,3 +10,5 @@ function checkValidateData(Email, Password) {
     return "Invalid email or password";
   }
 }
+
+export default checkValidateData;
