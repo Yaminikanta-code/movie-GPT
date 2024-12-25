@@ -1,11 +1,16 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import checkValidateData from "../utils/Validate";
+//To get data from input boxes we can either use  onChange or onInput with state variables or use useRef to use reference of those input boxe
 
 function Login() {
   const [IsSignin, setIsSignin] = React.useState(true);
   function toggleForm() {
     setIsSignin(!IsSignin);
+  }
+  function handleButtonClick() {
+    //let validation = checkValidateData(Email, Password);
   }
   return (
     <>
