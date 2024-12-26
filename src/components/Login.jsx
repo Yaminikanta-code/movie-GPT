@@ -69,11 +69,11 @@ function Login() {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: USER_AVATAR,
+            photoURL: photoURL.current.value,
           })
             .then(() => {
-              navigate("/browse");
               const { uid, email, displayName, photoURL } = auth.currentUser;
+              navigate("/browse");
               dispatch(
                 addUser({
                   uid: uid,

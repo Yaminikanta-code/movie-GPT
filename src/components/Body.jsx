@@ -28,13 +28,14 @@ function Body() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const { uid, email, displayName } = user.uid;
+        const { uid, email, displayName, photoURL } = user.uid;
         // console.log(uid, email, displayName);
         dispatch(
           addUser({
             uid: uid,
             email: email,
             displayName: displayName,
+            photoURL: photoURL,
           })
         );
       } else {
