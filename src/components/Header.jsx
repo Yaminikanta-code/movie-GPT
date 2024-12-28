@@ -13,15 +13,7 @@ function Header() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        //navigate("/");
-        dispatch(removeUser());
-      })
-      .catch((error) => {
-        console.log(error);
-        //add signOut
-      });
+    signOut(auth);
   };
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
