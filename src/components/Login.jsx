@@ -49,7 +49,7 @@ function Login() {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          navigate("/browse");
+          //navigate("/browse");
 
           // console.log(user);
         })
@@ -70,22 +70,9 @@ function Login() {
           updateProfile(user, {
             displayName: name.current.value,
             photoURL: photoURL.current.value,
-          })
-            .then(() => {
-              const { uid, email, displayName, photoURL } = auth.currentUser;
-              navigate("/browse");
-              dispatch(
-                addUser({
-                  uid: uid,
-                  email: email,
-                  displayName: displayName,
-                  photoURL: photoURL,
-                })
-              );
-            })
-            .catch((error) => {
-              setError(error.message);
-            });
+          }).catch((error) => {
+            setError(error.message);
+          });
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -99,7 +86,7 @@ function Login() {
       <div
         className="w-full h-screen flex flex-wrap justify-center bg-cover bg-no-repeat"
         style={{
-          backgroundImage: `url(background.jpg)`,
+          backgroundImage: `url(background.jpeg)`,
           backgroundSize: "100% 100%",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",

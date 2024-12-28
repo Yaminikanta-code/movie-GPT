@@ -23,29 +23,6 @@ const appRouter = createBrowserRouter(
 );
 
 function Body() {
-  //const navigate = useNavigate();
-  const dispatch = useDispatch();
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const { uid, email, displayName, photoURL } = user.uid;
-        // console.log(uid, email, displayName);
-        dispatch(
-          addUser({
-            uid: uid,
-            email: email,
-            displayName: displayName,
-            photoURL: photoURL,
-          })
-        );
-      } else {
-        // User is signed out
-        dispatch(removeUser());
-        //navigate("/");
-      }
-    });
-  }, []);
-
   return <RouterProvider router={appRouter} />;
 }
 

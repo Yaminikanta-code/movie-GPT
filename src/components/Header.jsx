@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/Firebase";
 import { useSelector, useDispatch } from "react-redux";
-import { removeUser } from "../store/userSlice";
+import { addUser, removeUser } from "../store/userSlice";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 
 function Header() {
   const dispatch = useDispatch();
@@ -13,7 +15,7 @@ function Header() {
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        navigate("/");
+        //navigate("/");
         dispatch(removeUser());
       })
       .catch((error) => {
@@ -21,6 +23,27 @@ function Header() {
         //add signOut
       });
   };
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName, photoURL } = user.uid;
+        // console.log(uid, email, displayName);
+        dispatch(
+          addUser({
+            uid: uid,
+            email: email,
+            displayName: displayName,
+            photoURL: photoURL,
+          })
+        );
+        navigate("/browse");
+      } else {
+        // User is signed out
+        dispatch(removeUser());
+        navigate("/");
+      }
+    });
+  }, []);
   return (
     <div className="w-full bg-transparent m-4">
       <header className="flex justify-between items-center p-0">
