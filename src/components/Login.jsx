@@ -69,7 +69,8 @@ function Login() {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: photoURL.current.value,
+            photoURL:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYLYDjmdFOye9Grb9MizY3-hNhvmdHjtTzKVTabbNglAhlQrmffNPVfORCi6pOcl6ureU&usqp=CAU",
           }).catch((error) => {
             setError(error.message);
           });

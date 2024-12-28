@@ -18,8 +18,8 @@ function Header() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        const { uid, email, displayName, photoURL } = user.uid;
-        // console.log(uid, email, displayName);
+        const { uid, email, displayName, photoURL } = user;
+        console.log(user);
         dispatch(
           addUser({
             uid: uid,
@@ -49,8 +49,11 @@ function Header() {
             >
               Sign Out
             </button>
-            <img src="user?.photoURL" alt="avatar" />
-            <span className="text-white">{user?.displayName}</span>
+
+            <div className="w-[36px] h-[36px] flex flex-col items-center justify-center rounded-lg m-4">
+              <img src={user?.photoURL} alt="avatar" />
+              <span className="text-white">{user?.displayName}</span>
+            </div>
           </nav>
         )}
       </header>
