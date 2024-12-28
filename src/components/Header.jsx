@@ -16,7 +16,7 @@ function Header() {
     signOut(auth);
   };
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const { uid, email, displayName, photoURL } = user.uid;
         // console.log(uid, email, displayName);
@@ -35,6 +35,7 @@ function Header() {
         navigate("/");
       }
     });
+    return () => unsubscribe();
   }, []);
   return (
     <div className="w-full bg-transparent m-4">
