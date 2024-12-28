@@ -144,7 +144,7 @@ function Login() {
                   placeholder="Enter your password"
                 />
               </div>
-              <p className="text-red-500">{error}</p>
+              <p className="text-[#e50914]">{error}</p>
               <button
                 type="submit"
                 onClick={handleButtonClick}
