@@ -1,9 +1,8 @@
 import React from "react";
 import { Header } from "../components";
 import { Footer } from "../components";
-import checkValidateData from "../utils/Validate";
+import { authService, checkValidateData } from "../utils";
 import { useRef } from "react";
-import authService from "../utils/Firebase";
 
 //To get data from input boxes we can either use  onChange or onInput with state variables or use useRef to use reference of those input boxe
 //Add name validation
