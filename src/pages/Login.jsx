@@ -88,7 +88,7 @@ function Login() {
       >
         <div className="w-full h-[110vh] flex flex-wrap justify-center bg-white/10 backdrop-blur-lg sm:bg-transparent sm:backdrop-blur-none">
           <Header />
-          <div className="w-full sm:w-2/3 lg:w-1/4 sm:h-auto sm:bg-white/10 sm:backdrop-blur-lg rounded-lg sm:shadow-lg p-8 mb-20">
+          <div className="w-full sm:w-2/3 lg:w-[28%] sm:h-auto sm:bg-white/10 sm:backdrop-blur-lg rounded-lg sm:shadow-lg p-8 mb-20">
             <h1 className="font-title text-white text-3xl mb-6 font-semibold">
               {isSignin ? "Sign In" : "Sign Up"}
             </h1>
