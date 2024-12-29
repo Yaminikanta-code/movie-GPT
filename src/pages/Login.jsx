@@ -1,84 +1,66 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { Header } from "../components";
 import { Footer } from "../components";
 import { authService, checkValidateData } from "../utils";
-import ReCAPTCHA from "react-google-recaptcha";
+import { useRef } from "react";
 
-const reCaptchaKey = import.meta.env.VITE_SITE_KEY;
-
+//To get data from input boxes we can either use  onChange or onInput with state variables or use useRef to use reference of those input boxe
+//Add name validation
 function Login() {
-  const [isSignin, setIsSignin] = useState(true);
-  const [error, setError] = useState(null);
-  const [recaptchaVerified, setRecaptchaVerified] = useState(false);
+  const [IsSignin, setIsSignin] = React.useState(true);
+  const [error, setError] = React.useState(null);
 
+  function toggleForm() {
+    setIsSignin(!IsSignin);
+  }
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
 
-  const handleRecaptchaChange = (value) => {
-    if (value) {
-      setRecaptchaVerified(true);
-      setError(null); // Clear error if reCAPTCHA is verified
-    } else {
-      setRecaptchaVerified(false);
-    }
-  };
-
-  const toggleForm = () => setIsSignin(!isSignin);
-
   async function handleSignIn() {
-    if (!recaptchaVerified) {
-      setError("Please complete the reCAPTCHA verification.");
-      return;
-    }
-    try {
-      const error = await authService.signIn(
-        email.current.value,
-        password.current.value
-      );
-      setError(`${error.errorCode} - ${error.errorMessage}`);
-    } catch (err) {
-      setError("Failed to sign in. Please try again.");
-    }
-  }
-
-  async function handleSignUp() {
-    if (!recaptchaVerified) {
-      setError("Please complete the reCAPTCHA verification.");
-      return;
-    }
-    try {
-      const error = await authService.signUp(
-        email.current.value,
-        password.current.value,
-        name.current.value
-      );
-      setError(`${error.errorCode} - ${error.errorMessage}`);
-    } catch (err) {
-      setError("Failed to sign up. Please try again.");
-    }
-  }
-
-  function handleButtonClick() {
-    const validationError = checkValidateData(
+    const error = await authService.signIn(
       email.current.value,
       password.current.value
     );
-    if (validationError) {
-      setError(validationError);
+    setError(`${error.errorCode} - ${error.errorMessage}`);
+  }
+
+  async function handleSignUp() {
+    const error = await authService.signUp(
+      email.current.value,
+      password.current.value,
+      name.current.value
+    );
+
+    setError(`${error.errorCode} - ${error.errorMessage}`);
+  }
+
+  function handleButtonClick() {
+    //console.log(email)
+    // console.log(email.current.value);
+    // console.log(password.current.value);
+    //console.log(password)
+    const message = checkValidateData(
+      email.current.value,
+      password.current.value
+    );
+    setError(message);
+    //Auth Logic
+    if (message) {
       return;
     }
-    if (isSignin) {
+    if (IsSignin) {
+      //Sign In Logic
       handleSignIn();
     } else {
+      //Sign Up Logic
       handleSignUp();
     }
   }
-
   return (
     <>
       <div
-        className="w-full h-[110vh] flex flex-wrap justify-center bg-cover bg-no-repeat"
+        className="w-full h-screen flex flex-wrap justify-center bg-cover bg-no-repeat"
         style={{
           backgroundImage: `url(background.jpeg)`,
           backgroundSize: "100% 100%",
@@ -86,27 +68,31 @@ function Login() {
           backgroundPosition: "center",
         }}
       >
-        <div className="w-full h-[110vh] flex flex-wrap justify-center bg-white/10 backdrop-blur-lg sm:bg-transparent sm:backdrop-blur-none">
+        <div className="w-full h-screen flex flex-wrap justify-center bg-white/10 backdrop-blur-lg sm:bg-transparent sm:backdrop-blur-none">
           <Header />
-          <div className="w-full sm:w-2/3 lg:w-1/4 sm:h-auto sm:bg-white/10 sm:backdrop-blur-lg rounded-lg sm:shadow-lg p-8 mb-20">
+          <div
+            className="w-full sm:w-2/3 lg:w-1/4 sm:h-auto sm:bg-white/10 sm:backdrop-blur-lg rounded-lg sm:shadow-lg p-8 mb-20
+        "
+          >
+            {" "}
             <h1 className="font-title text-white text-3xl mb-6 font-semibold">
-              {isSignin ? "Sign In" : "Sign Up"}
+              {IsSignin ? "Sign In" : "Sign Up"}
             </h1>
             <form
               onSubmit={(e) => e.preventDefault()}
               className="flex flex-col gap-4"
             >
-              {!isSignin && (
+              {!IsSignin && (
                 <div className="flex flex-col">
-                  <label htmlFor="name" className="text-white text-sm mb-2">
+                  <label htmlFor="email" className="text-white text-sm mb-2">
                     Name
                   </label>
                   <input
                     ref={name}
-                    type="text"
-                    id="name"
+                    type="Name"
+                    id="Name"
                     className="p-3 rounded-md bg-white/50 focus:outline-none focus:ring-2 focus:ring-white/80"
-                    placeholder="Enter your name"
+                    placeholder="Enter your Name"
                   />
                 </div>
               )}
@@ -134,31 +120,22 @@ function Login() {
                   placeholder="Enter your password"
                 />
               </div>
-              <ReCAPTCHA
-                sitekey={reCaptchaKey}
-                onChange={handleRecaptchaChange}
-                style={{
-                  transform: "scaleY(0.7) scaleX(0.85)",
-                  alignSelf: "center",
-                }}
-              />
               <p className="text-[#e50914]">{error}</p>
               <button
                 type="submit"
                 onClick={handleButtonClick}
                 className="bg-[#e50914] text-white p-2 rounded-md shadow-xl w-full active:bg-red-400"
-                disabled={!recaptchaVerified}
               >
-                {isSignin ? "Sign In" : "Sign Up"}
+                {IsSignin ? "Sign In" : "Sign Up"}
               </button>
             </form>
             <p className="text-white text-sm mt-6 text-left">
-              {isSignin ? "New to MovieGPT? " : "Already have an account? "}
+              {IsSignin ? "New to MovieGPT? " : "Already have an account? "}
               <span
                 className="text-primary-500 underline cursor-pointer"
                 onClick={toggleForm}
               >
-                {isSignin ? "Sign Up" : "Sign In"}
+                {IsSignin ? "Sign Up" : "Sign In"}
               </span>
             </p>
           </div>
