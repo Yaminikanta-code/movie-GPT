@@ -1,5 +1,6 @@
 import React from "react";
-import Header from "./Header";
+import { Header } from "../components";
+import { Footer } from "../components";
 
 function Browse() {
   return (
@@ -7,6 +8,7 @@ function Browse() {
       <div className="w-full h-screen flex flex-wrap justify-center bg-white/10 backdrop-blur-lg sm:bg-transparent sm:backdrop-blur-none">
         <Header />
       </div>
+      <Footer />
     </div>
   );
 }
