@@ -7,13 +7,28 @@ import ReCAPTCHA from "react-google-recaptcha";
 const reCaptchaKey = import.meta.env.VITE_SITE_KEY;
 
 function Login() {
+  const eye = <i class="fa-solid fa-eye"></i>;
+  const eyeOff = <i class="fa-solid fa-eye-slash"></i>;
+
   const [isSignin, setIsSignin] = useState(true);
   const [error, setError] = useState(null);
   const [recaptchaVerified, setRecaptchaVerified] = useState(false);
+  const [type, setType] = useState("password");
+  const [icon, setIcon] = useState(eye);
 
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
+
+  function toggleEye() {
+    if (type === "password") {
+      setType("text");
+      setIcon(eyeOff);
+    } else {
+      setType("password");
+      setIcon(eye);
+    }
+  }
 
   const handleRecaptchaChange = (value) => {
     if (value) {
@@ -122,17 +137,23 @@ function Login() {
                   placeholder="Enter your email"
                 />
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col relative">
                 <label htmlFor="password" className="text-white text-sm mb-2">
                   Password
                 </label>
                 <input
                   ref={password}
-                  type="password"
+                  type={type}
                   id="password"
                   className="p-3 rounded-md bg-white/50 focus:outline-none focus:ring-2 focus:ring-white/80"
                   placeholder="Enter your password"
                 />
+                <span
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer mb-4 mt-4 text-xl text-slate-500"
+                  onClick={toggleEye}
+                >
+                  {icon}
+                </span>
               </div>
               <ReCAPTCHA
                 sitekey={reCaptchaKey}
