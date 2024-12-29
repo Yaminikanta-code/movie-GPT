@@ -3,28 +3,39 @@ import { Header } from "../components";
 import { Footer } from "../components";
 import checkValidateData from "../utils/Validate";
 import { useRef } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
-import { auth } from "../utils/Firebase";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import authService from "../utils/Firebase";
 
 //To get data from input boxes we can either use  onChange or onInput with state variables or use useRef to use reference of those input boxe
 //Add name validation
 function Login() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [IsSignin, setIsSignin] = React.useState(true);
   const [error, setError] = React.useState(null);
+
   function toggleForm() {
     setIsSignin(!IsSignin);
   }
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
+
+  async function handleSignIn() {
+    const error = await authService.signIn(
+      email.current.value,
+      password.current.value
+    );
+    setError(`${error.errorCode} - ${error.errorMessage}`);
+  }
+
+  async function handleSignUp() {
+    const error = await authService.signUp(
+      email.current.value,
+      password.current.value,
+      name.current.value
+    );
+
+    setError(`${error.errorCode} - ${error.errorMessage}`);
+  }
+
   function handleButtonClick() {
     //console.log(email)
     // console.log(email.current.value);
@@ -41,45 +52,10 @@ function Login() {
     }
     if (IsSignin) {
       //Sign In Logic
-      signInWithEmailAndPassword(
-        auth,
-        email.current.value,
-        password.current.value
-      )
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          //navigate("/browse");
-
-          // console.log(user);
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setError(errorCode + "-" + errorMessage);
-        });
+      handleSignIn();
     } else {
       //Sign Up Logic
-      createUserWithEmailAndPassword(
-        auth,
-        email.current.value,
-        password.current.value
-      )
-        .then((userCredential) => {
-          const user = userCredential.user;
-          updateProfile(user, {
-            displayName: name.current.value,
-            photoURL:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYLYDjmdFOye9Grb9MizY3-hNhvmdHjtTzKVTabbNglAhlQrmffNPVfORCi6pOcl6ureU&usqp=CAU",
-          }).catch((error) => {
-            setError(error.message);
-          });
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setError(errorCode + "-" + errorMessage);
-        });
+      handleSignUp();
     }
   }
   return (

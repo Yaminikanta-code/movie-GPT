@@ -1,42 +1,14 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { signOut } from "firebase/auth";
-import { auth } from "../../utils/Firebase";
-import { useSelector, useDispatch } from "react-redux";
-import { addUser, removeUser } from "../../store/userSlice";
-import { useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import authService from "../../utils/Firebase";
+import { UseAuthState } from "../../hooks";
 
 function Header() {
-  const dispatch = useDispatch();
+  async function handleSignOut() {
+    await authService.signOutUser();
+  }
 
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
-  const handleSignOut = () => {
-    signOut(auth);
-  };
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const { uid, email, displayName, photoURL } = user;
-        console.log(user);
-        dispatch(
-          addUser({
-            uid: uid,
-            email: email,
-            displayName: displayName,
-            photoURL: photoURL,
-          })
-        );
-        navigate("/browse");
-      } else {
-        // User is signed out
-        dispatch(removeUser());
-        navigate("/");
-      }
-    });
-    return () => unsubscribe();
-  }, []);
+  const user = UseAuthState();
+
   return (
     <div className="w-full bg-transparent m-4">
       <header className="flex justify-between items-center p-0">
@@ -50,7 +22,7 @@ function Header() {
                 className="w-12 h-12 rounded-full"
               />
               <p className="text-white w-14 text-center">
-                {(user?.displayName).split(" ")[0]}
+                {user?.displayName?.split(" ")[0]}
               </p>
             </div>
             <button
