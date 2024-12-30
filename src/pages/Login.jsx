@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Header } from "../components";
-import { Footer } from "../components";
+import { Header, Footer } from "../components";
 import { authService, checkValidateData } from "../utils";
 import ReCAPTCHA from "react-google-recaptcha";
 

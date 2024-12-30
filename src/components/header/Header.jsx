@@ -1,5 +1,5 @@
 import React from "react";
-import authService from "../../utils/Firebase";
+import { authService } from "../../utils";
 import { UseAuthState } from "../../hooks";
 
 function Header() {

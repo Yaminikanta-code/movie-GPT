@@ -1,6 +1,5 @@
 import React from "react";
-import { Header } from "../components";
-import { Footer } from "../components";
+import { Header, Footer } from "../components";
 
 function Browse() {
   return (
