@@ -1,4 +1,5 @@
 import authService from "./Firebase";
 import checkValidateData from "./Validate";
+import { reCaptchaKey } from "./Constants";
 
-export { authService, checkValidateData };
+export { authService, checkValidateData, reCaptchaKey };
