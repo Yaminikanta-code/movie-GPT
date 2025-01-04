@@ -6,8 +6,8 @@ import ReCAPTCHA from "react-google-recaptcha";
 const reCaptchaKey = import.meta.env.VITE_SITE_KEY;
 
 function Login() {
-  const eye = <i class="fa-solid fa-eye"></i>;
-  const eyeOff = <i class="fa-solid fa-eye-slash"></i>;
+  const eye = <i className="fa-solid fa-eye"></i>;
+  const eyeOff = <i className="fa-solid fa-eye-slash"></i>;
 
   const [isSignin, setIsSignin] = useState(true);
   const [error, setError] = useState(null);

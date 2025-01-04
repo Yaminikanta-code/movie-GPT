@@ -1,5 +1,11 @@
 import authService from "./Firebase";
 import checkValidateData from "./Validate";
-import { reCaptchaKey } from "./Constants";
+import { reCaptchaKey, IMG_CDN_URL, tmdbApiKey } from "./Constants";
 
-export { authService, checkValidateData, reCaptchaKey };
+export {
+  authService,
+  checkValidateData,
+  reCaptchaKey,
+  IMG_CDN_URL,
+  tmdbApiKey,
+};

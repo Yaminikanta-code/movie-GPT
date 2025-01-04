@@ -14,7 +14,7 @@ function UseAuthState() {
     const unsubscribe = onAuthStateChanged(authService.auth, (user) => {
       if (user) {
         const { uid, email, displayName, photoURL } = user;
-        console.log(user);
+        //console.log(user);
         dispatch(
           addUser({
             uid,
