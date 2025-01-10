@@ -10,7 +10,7 @@ function MainContainer() {
   const mainMovie = movies[0];
 
   return (
-    <div className="relative w-full aspect-video bg-black">
+    <div className="relative w-full aspect-video bg-gray-950">
       <VideoBackground movieId={mainMovie?.id} />
       <VideoTitle
         title={mainMovie?.original_title}

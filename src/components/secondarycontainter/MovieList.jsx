@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import MovieCard from "./MovieCard";
 import { useMovie } from "../../hooks";
 
-function MovieList({ title, type }) {
+function MovieList({ title, type, with_genres }) {
   const [isMoved, setIsMoved] = useState(false);
   const [slideNumber, setSlideNumber] = useState(0);
   const listRef = useRef();

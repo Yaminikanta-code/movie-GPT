@@ -8,7 +8,7 @@ function Browse() {
   //console.log("okay", movies[0]?.id);
   //console.log(movies[0]?.original_title);
   return (
-    <div className="bg-black">
+    <div className="bg-gray-950">
       <div className="absolute flex w-full z-20">
         <Header />
       </div>

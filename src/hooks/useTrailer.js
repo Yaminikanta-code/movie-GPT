@@ -13,7 +13,7 @@ const useTrailer = (movieId) => {
     const fetchTrailer = async () => {
       setLoading(true);
       setError(null);
-      console.log("movieId", movieId);
+      //console.log("movieId", movieId);
       if (!movieId) {
         return;
       }

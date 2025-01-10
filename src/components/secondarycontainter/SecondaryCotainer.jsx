@@ -2,7 +2,7 @@ import MovieList from "./MovieList";
 
 function SecondaryContainer() {
   return (
-    <div className=" mt-0 md:-mt-52 pl-4 md:pl-12 relative z-30 mb-4 bg-transparent">
+    <div className="-mt-30 md:-mt-52 pl-4 md:pl-12 relative z-30 mb-20 bg-transparent ">
       <MovieList title={"Upcoming Movies"} movies={"upcoming"} />
       <MovieList title={"Now Playing"} type={"now_playing"} />
       <MovieList title={"Top Rated"} type={"top_rated"} />
