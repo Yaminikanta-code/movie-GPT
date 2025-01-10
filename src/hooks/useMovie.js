@@ -8,7 +8,6 @@ const useMovie = (
   page = "1",
   region = "US",
   language = "en-US",
-  year = "2023",
   with_genres = ""
 ) => {
   const [movies, setMovies] = useState([]);
@@ -22,7 +21,7 @@ const useMovie = (
 
       try {
         // Include the API key in the query string
-        const url = `${BASE_URL}/movie/${type}?api_key=${tmdbApiKey}&page=${page}&region=${region}&language=${language}&year=${year}&with_genres=${with_genres}`;
+        const url = `${BASE_URL}/movie/${type}?api_key=${tmdbApiKey}&page=${page}&region=${region}&language=${language}&with_genres=${with_genres}`;
         const response = await fetch(url);
 
         if (!response.ok) {

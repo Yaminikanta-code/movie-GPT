@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import MovieCard from "./MovieCard";
 import { useMovie } from "../../hooks";
+import { Link } from "react-router-dom";
 
 function MovieList({ title, type, with_genres }) {
   const [isMoved, setIsMoved] = useState(false);
@@ -33,8 +34,12 @@ function MovieList({ title, type, with_genres }) {
   return (
     <div className="flex flex-col w-full mt-20 relative">
       <span className="text-3xl font-semibold mb-2 text-white py-4">
-        {title}
+        <Link to={`/browse/infinite-scroll/${type}`}>
+          {title}{" "}
+          <i className="fas fa-chevron-right text-yellow-400 text-3xl"></i>
+        </Link>
       </span>
+
       <div className="relative">
         <button
           className={`absolute top-1/2 -translate-y-1/2 left-2 z-10 cursor-pointer text-white bg-gray-800 rounded-full p-2 transition-transform ${

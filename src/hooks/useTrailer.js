@@ -7,7 +7,7 @@ const useTrailer = (movieId) => {
   const [trailerVideo, setTrailerVideo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  console.log(movieId);
+  //console.log(movieId);
 
   useEffect(() => {
     const fetchTrailer = async () => {
